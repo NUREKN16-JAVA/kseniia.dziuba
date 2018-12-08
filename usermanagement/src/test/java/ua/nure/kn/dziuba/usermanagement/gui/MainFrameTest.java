@@ -2,6 +2,7 @@ package ua.nure.kn.dziuba.usermanagement.gui;
 
 import junit.extensions.jfcunit.JFCTestCase;
 import junit.extensions.jfcunit.JFCTestHelper;
+import junit.extensions.jfcunit.eventdata.MouseEventData;
 import junit.extensions.jfcunit.finder.NamedComponentFinder;
 import junit.framework.TestCase;
 
@@ -41,5 +42,17 @@ public class MainFrameTest extends JFCTestCase {
         find(JButton.class, "editButton");
         find(JButton.class, "deleteButton");
         find(JButton.class, "detailsButton");
+    }
+
+    public void testAddUser(){
+        JButton addButton = (JButton)find(JButton.class, "addButton");
+        find(JPanel.class, "addPanel");
+        getHelper().enterClickAndLeave(new MouseEventData(this, addButton));
+
+        find(JTextField.class, "firstNameField");
+        find(JTextField.class, "lastNameField");
+        find(JTextField.class, "dateOfBirthField");
+        find(JButton.class, "okButton");
+        find(JButton.class, "cancelButton");
     }
 }
