@@ -12,6 +12,9 @@ public class AddPanel extends JPanel implements ActionListener {
     private JPanel fieldPanel;
     private JButton okButton;
     private JButton cancelButton;
+    private JTextField dateOfBirthField;
+    private JTextField lastNameField;
+    private JTextField firstNameField;
 
     public AddPanel(MainFrame frame){
         parent = frame;
@@ -58,8 +61,43 @@ public class AddPanel extends JPanel implements ActionListener {
     private Component getFieldPanel() {
         if(fieldPanel == null){
             fieldPanel = new JPanel();
+            fieldPanel.setLayout(new GridLayout(3, 2));
+            addLabeledField(fieldPanel, "First Name", getFirstNameField());
+            addLabeledField(fieldPanel, "Last Name", getLastNameField());
+            addLabeledField(fieldPanel, "Date of Birth", getDateOfBirth());
         }
         return fieldPanel;
+    }
+
+    private JTextField getDateOfBirth() {
+        if(dateOfBirthField == null){
+            dateOfBirthField = new JTextField();
+            dateOfBirthField.setName("dateOfBirthField");
+        }
+        return dateOfBirthField;
+    }
+
+    private JTextField getLastNameField() {
+        if(lastNameField == null){
+            lastNameField = new JTextField();
+            lastNameField.setName("lastNameField");
+        }
+        return lastNameField;
+    }
+
+    private void addLabeledField(JPanel panel, String labelText, JTextField textField) {
+        JLabel label = new JLabel(labelText);
+        label.setLabelFor(textField);
+        panel.add(label);
+        panel.add(textField);
+    }
+
+    private JTextField getFirstNameField() {
+        if(firstNameField == null){
+            firstNameField = new JTextField();
+            firstNameField.setName("firstNameField");
+        }
+        return firstNameField;
     }
 
     @Override
