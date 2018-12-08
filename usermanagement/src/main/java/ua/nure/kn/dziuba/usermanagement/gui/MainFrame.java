@@ -7,8 +7,8 @@ public class MainFrame extends JFrame {
 
     private JPanel contentPanel;
     private BrowsePanel browsePanel;
-    private static final int FRAME_WIDTH = 600;
-    private static final int FRAME_HEIGHT = 800;
+    private static final int FRAME_WIDTH = 400;
+    private static final int FRAME_HEIGHT = 500;
     private AddPanel addPanel;
 
     public MainFrame(){
@@ -56,6 +56,9 @@ public class MainFrame extends JFrame {
     }
 
     private AddPanel getAddPanel() {
+        if(addPanel == null){
+            addPanel = new AddPanel(this);
+        }
         return addPanel;
     }
 }

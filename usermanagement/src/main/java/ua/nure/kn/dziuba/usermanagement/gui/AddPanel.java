@@ -22,6 +22,7 @@ public class AddPanel extends JPanel implements ActionListener {
     }
 
     private void initialize() {
+        this.setName("addPanel");
         this.setLayout(new BorderLayout());
         this.add(getFieldPanel(), BorderLayout.NORTH);
         this.add(getButtonsPanel(), BorderLayout.SOUTH);
@@ -40,7 +41,7 @@ public class AddPanel extends JPanel implements ActionListener {
         if(cancelButton == null){
             cancelButton = new JButton();
             cancelButton.setText("Cancel");
-            cancelButton.setName("cancelButtton");
+            cancelButton.setName("cancelButton");
             cancelButton.setActionCommand("cancel");
             cancelButton.addActionListener(this);
         }
