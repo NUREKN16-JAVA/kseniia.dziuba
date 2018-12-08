@@ -2,6 +2,7 @@ package ua.nure.kn.dziuba.usermanagement.db;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import static java.sql.DriverManager.getConnection;
 
@@ -16,6 +17,13 @@ public class ConnectionFactoryImpl implements ConnectionFactory {
         this.password = password;
         this.url = url;
         this.driver = driver;
+    }
+
+    public ConnectionFactoryImpl(Properties properties){
+        this.user = properties.getProperty(user);
+        this.password = properties.getProperty(password);
+        this.url = properties.getProperty(url);
+        this.driver = properties.getProperty(driver);
     }
 
     /**
