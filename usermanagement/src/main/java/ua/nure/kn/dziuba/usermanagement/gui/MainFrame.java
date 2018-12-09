@@ -63,4 +63,8 @@ public class MainFrame extends JFrame {
         }
         return addPanel;
     }
+
+    public void showBrowsePanel() {
+        this.showPanel(getBrowsePanel());
+    }
 }
