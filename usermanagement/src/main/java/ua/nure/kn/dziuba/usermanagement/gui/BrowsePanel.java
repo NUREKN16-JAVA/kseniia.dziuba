@@ -1,5 +1,6 @@
 package ua.nure.kn.dziuba.usermanagement.gui;
 
+import ua.nure.kn.dziuba.usermanagement.db.DatabaseException;
 import ua.nure.kn.dziuba.usermanagement.util.Messages;
 
 import javax.swing.*;
@@ -94,20 +95,28 @@ public class BrowsePanel extends JPanel implements ActionListener {
     }
 
     private JTable getUserTable() {
-        if(userTable == null){
+        if (userTable == null) {
             userTable = new JTable();
             userTable.setName("userTable");
-
-            UserTableModel model = new UserTableModel(new ArrayList());
-            userTable.setModel(model);
         }
         return userTable;
+    }
+
+    public void initTable(){
+        UserTableModel model;
+        try {
+            model = new UserTableModel(parent.getDao().findAll());
+        }catch (DatabaseException e){
+            model = new UserTableModel(new ArrayList());
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        userTable.setModel(model);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
-        if("add".equalsIgnoreCase(actionCommand)){
+        if ("add".equalsIgnoreCase(actionCommand)) {
             this.setVisible(false);
             parent.showAddPanel();
         }

@@ -1,11 +1,15 @@
 package ua.nure.kn.dziuba.usermanagement.gui;
 
+import ua.nure.kn.dziuba.usermanagement.User;
+import ua.nure.kn.dziuba.usermanagement.db.DatabaseException;
 import ua.nure.kn.dziuba.usermanagement.util.Messages;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
 
 public class AddPanel extends JPanel implements ActionListener {
 
@@ -105,7 +109,34 @@ public class AddPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if("ok".equalsIgnoreCase(e.getActionCommand())){
+            User user = new User();
+            user.setFirstName(getFirstNameField().getText());
+            user.setLastName(getLastNameField().getText());
+            DateFormat dateFormat = DateFormat.getDateInstance();
+            try{
+                user.setDateOfBirth(dateFormat.parse(getDateOfBirth().getText()));
+            }catch (ParseException e1){
+                getDateOfBirth().setBackground(Color.RED);
+            }
+
+            try{
+                parent.getDao().create(user);
+            }catch (DatabaseException e1){
+                JOptionPane.showMessageDialog(this, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        clearFields();
         this.setVisible(false);
         parent.showBrowsePanel();
+    }
+
+    public void clearFields(){
+        getFirstNameField().setText("");
+        getFirstNameField().setBackground(Color.WHITE);
+        getLastNameField().setText("");
+        getLastNameField().setBackground(Color.WHITE);
+        getDateOfBirth().setText("");
+        getDateOfBirth().setBackground(Color.WHITE);
     }
 }

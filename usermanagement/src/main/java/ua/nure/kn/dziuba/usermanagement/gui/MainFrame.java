@@ -1,5 +1,7 @@
 package ua.nure.kn.dziuba.usermanagement.gui;
 
+import ua.nure.kn.dziuba.usermanagement.db.DaoFactory;
+import ua.nure.kn.dziuba.usermanagement.db.UserDao;
 import ua.nure.kn.dziuba.usermanagement.util.Messages;
 
 import javax.swing.*;
@@ -12,10 +14,16 @@ public class MainFrame extends JFrame {
     private static final int FRAME_WIDTH = 400;
     private static final int FRAME_HEIGHT = 500;
     private AddPanel addPanel;
+    private UserDao dao;
 
     public MainFrame(){
         super();
+        dao = DaoFactory.getInstance().getUserDao();
         initialize();
+    }
+
+    public UserDao getDao(){
+        return dao;
     }
 
     private void initialize(){
@@ -39,6 +47,8 @@ public class MainFrame extends JFrame {
         if(browsePanel == null){
             browsePanel = new BrowsePanel(this);
         }
+        ((BrowsePanel)browsePanel).initTable();
+
         return browsePanel;
     }
 
