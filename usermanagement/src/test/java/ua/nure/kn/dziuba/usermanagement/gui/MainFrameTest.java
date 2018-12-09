@@ -1,14 +1,18 @@
 package ua.nure.kn.dziuba.usermanagement.gui;
 
+import javafx.scene.input.DataFormat;
 import junit.extensions.jfcunit.JFCTestCase;
 import junit.extensions.jfcunit.JFCTestHelper;
 import junit.extensions.jfcunit.eventdata.MouseEventData;
+import junit.extensions.jfcunit.eventdata.StringEventData;
 import junit.extensions.jfcunit.finder.NamedComponentFinder;
 import junit.framework.TestCase;
 import ua.nure.kn.dziuba.usermanagement.util.Messages;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DateFormat;
+import java.util.Date;
 
 public class MainFrameTest extends JFCTestCase {
 
@@ -36,7 +40,7 @@ public class MainFrameTest extends JFCTestCase {
         return component;
     }
 
-    public void testBrowseControls(){
+    public void testBrowseControls() {
         find(JPanel.class, "browsePanel");
 
         JTable table = (JTable) find(JTable.class, "userTable");
@@ -48,17 +52,34 @@ public class MainFrameTest extends JFCTestCase {
         find(JButton.class, "addButton");
         find(JButton.class, "editButton");
         find(JButton.class, "deleteButton");
-        find(JButton.class, "detailsButton"); }
+        find(JButton.class, "detailsButton");
+    }
 
-    public void testAddUser(){
-        JButton addButton = (JButton)find(JButton.class, "addButton");
+    public void testAddUser() {
+        JTable userTable = (JTable) find(JTable.class, "userTable");
+        assertEquals(0, userTable.getRowCount());
+
+        JButton addButton = (JButton) find(JButton.class, "addButton");
         getHelper().enterClickAndLeave(new MouseEventData(this, addButton));
         find(JPanel.class, "addPanel");
 
-        find(JTextField.class, "firstNameField");
-        find(JTextField.class, "lastNameField");
-        find(JTextField.class, "dateOfBirthField");
-        find(JButton.class, "okButton");
+        JTextField firstNameField = (JTextField) find(JTextField.class, "firstNameField");
+        JTextField lastNameField = (JTextField) find(JTextField.class, "lastNameField");
+        JTextField dateOfBirthField = (JTextField) find(JTextField.class, "dateOfBirthField");
+        JButton okButton = (JButton) find(JButton.class, "okButton");
         find(JButton.class, "cancelButton");
+
+        getHelper().sendString(new StringEventData(this, firstNameField, "Kseniia"));
+        getHelper().sendString(new StringEventData(this, lastNameField, "Dziuba"));
+
+        DateFormat dateFormat = DateFormat.getDateInstance();
+        String date = dateFormat.format(new Date());
+        getHelper().sendString(new StringEventData(this, dateOfBirthField, date));
+
+        getHelper().enterClickAndLeave(new MouseEventData(this, okButton));
+
+        find(JPanel.class, "browsePanel");
+        userTable = (JTable) find(JTable.class, "userTable");
+        assertEquals(1, userTable.getRowCount());
     }
 }
