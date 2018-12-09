@@ -1,5 +1,7 @@
 package ua.nure.kn.dziuba.usermanagement.gui;
 
+import ua.nure.kn.dziuba.usermanagement.util.Messages;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -40,7 +42,7 @@ public class AddPanel extends JPanel implements ActionListener {
     private JButton getCancelButton() {
         if(cancelButton == null){
             cancelButton = new JButton();
-            cancelButton.setText("Cancel");
+            cancelButton.setText(Messages.getString("cancel"));
             cancelButton.setName("cancelButton");
             cancelButton.setActionCommand("cancel");
             cancelButton.addActionListener(this);
@@ -51,7 +53,7 @@ public class AddPanel extends JPanel implements ActionListener {
     private JButton getOkButton() {
         if(okButton == null){
             okButton = new JButton();
-            okButton.setText("OK");
+            okButton.setText(Messages.getString("ok"));
             okButton.setName("okButton");
             okButton.setActionCommand("ok");
             okButton.addActionListener(this);
@@ -63,9 +65,9 @@ public class AddPanel extends JPanel implements ActionListener {
         if(fieldPanel == null){
             fieldPanel = new JPanel();
             fieldPanel.setLayout(new GridLayout(3, 2));
-            addLabeledField(fieldPanel, "First Name", getFirstNameField());
-            addLabeledField(fieldPanel, "Last Name", getLastNameField());
-            addLabeledField(fieldPanel, "Date of Birth", getDateOfBirth());
+            addLabeledField(fieldPanel, Messages.getString("first_name"), getFirstNameField());
+            addLabeledField(fieldPanel, Messages.getString("last_name"), getLastNameField());
+            addLabeledField(fieldPanel, Messages.getString("date_of_birth"), getDateOfBirth());
         }
         return fieldPanel;
     }
