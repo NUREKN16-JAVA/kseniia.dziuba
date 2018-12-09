@@ -7,12 +7,16 @@ import junit.extensions.jfcunit.eventdata.MouseEventData;
 import junit.extensions.jfcunit.eventdata.StringEventData;
 import junit.extensions.jfcunit.finder.NamedComponentFinder;
 import junit.framework.TestCase;
+import ua.nure.kn.dziuba.usermanagement.db.DaoFactory;
+import ua.nure.kn.dziuba.usermanagement.db.DaoFactoryImpl;
+import ua.nure.kn.dziuba.usermanagement.db.MockUserDao;
 import ua.nure.kn.dziuba.usermanagement.util.Messages;
 
 import javax.swing.*;
 import java.awt.*;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Properties;
 
 public class MainFrameTest extends JFCTestCase {
 
@@ -20,8 +24,17 @@ public class MainFrameTest extends JFCTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-        setHelper(new JFCTestHelper());
-        mainFrame = new MainFrame();
+        try{
+            Properties properties = new Properties();
+            properties.getProperty("dao.ua.nure.kn.dziuba.usermanagement.db.UserDao", MockUserDao.class.getName());
+            properties.setProperty("dao.factory", DaoFactoryImpl.class.getName());
+            DaoFactory.init(properties);
+
+            setHelper(new JFCTestHelper());
+            mainFrame = new MainFrame();
+        }catch (Exception e){
+            fail(e.getMessage());
+        }
         mainFrame.setVisible(true);
     }
 
