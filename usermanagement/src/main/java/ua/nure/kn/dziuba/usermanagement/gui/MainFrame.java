@@ -1,40 +1,46 @@
 package ua.nure.kn.dziuba.usermanagement.gui;
 
+import ua.nure.kn.dziuba.usermanagement.User;
 import ua.nure.kn.dziuba.usermanagement.db.DaoFactory;
+import ua.nure.kn.dziuba.usermanagement.db.DatabaseException;
 import ua.nure.kn.dziuba.usermanagement.db.UserDao;
 import ua.nure.kn.dziuba.usermanagement.util.Messages;
 
 import javax.swing.*;
 import java.awt.*;
 
+import static junit.framework.Assert.fail;
+
 public class MainFrame extends JFrame {
 
     private JPanel contentPanel;
     private BrowsePanel browsePanel;
     private static final int FRAME_WIDTH = 400;
-    private static final int FRAME_HEIGHT = 500;
+    private static final int FRAME_HEIGHT = 300;
     private AddPanel addPanel;
+    private DeletePanel deletePanel;
     private UserDao dao;
+    private Long userId;
 
-    public MainFrame(){
+    public MainFrame() {
         super();
         dao = DaoFactory.getInstance().getUserDao();
         initialize();
     }
 
-    public UserDao getDao(){
+    public UserDao getDao() {
         return dao;
     }
 
-    private void initialize(){
+    private void initialize() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         this.setTitle(Messages.getString("user_management"));
         this.setContentPane(getContentPanel());
     }
 
-    private JPanel getContentPanel(){
-        if(contentPanel == null){
+    private JPanel getContentPanel() {
+        if (contentPanel == null) {
             contentPanel = new JPanel();
             contentPanel.setLayout(new BorderLayout());
             contentPanel.add(getBrowsePanel(), BorderLayout.CENTER);
@@ -43,16 +49,16 @@ public class MainFrame extends JFrame {
         return contentPanel;
     }
 
-    private BrowsePanel getBrowsePanel(){
-        if(browsePanel == null){
+    private BrowsePanel getBrowsePanel() {
+        if (browsePanel == null) {
             browsePanel = new BrowsePanel(this);
         }
-        ((BrowsePanel)browsePanel).initTable();
+        ((BrowsePanel) browsePanel).initTable();
 
         return browsePanel;
     }
 
-    public static void main(String args[]){
+    public static void main(String args[]) {
         MainFrame frame = new MainFrame();
         frame.setVisible(true);
     }
@@ -61,20 +67,46 @@ public class MainFrame extends JFrame {
         showPanel(getAddPanel());
     }
 
-    private void showPanel(JPanel panel){
+    private void showPanel(JPanel panel) {
         getContentPane().add(panel, BorderLayout.CENTER);
         panel.setVisible(true);
         panel.repaint();
     }
 
     private AddPanel getAddPanel() {
-        if(addPanel == null){
+        if (addPanel == null) {
             addPanel = new AddPanel(this);
         }
+
         return addPanel;
+    }
+
+    private DeletePanel getDeletePanel() {
+        if (deletePanel == null) {
+            deletePanel = new DeletePanel(this);
+        }
+
+        return deletePanel;
     }
 
     public void showBrowsePanel() {
         this.showPanel(getBrowsePanel());
+    }
+
+    public void showDeletePanel() {
+        this.showPanel(getDeletePanel());
+    }
+
+    public void setUserId(Long userId){
+        this.userId = userId;
+    }
+
+    public User getUser() {
+        try {
+            return dao.find(userId);
+        } catch (DatabaseException e) {
+            fail(e.getMessage());
+        }
+        return null;
     }
 }

@@ -34,7 +34,7 @@ public class AddPanel extends JPanel implements ActionListener {
         this.add(getButtonsPanel(), BorderLayout.SOUTH);
     }
 
-    private Component getButtonsPanel() {
+    private JPanel getButtonsPanel() {
         if(buttonPanel == null){
             buttonPanel = new JPanel();
             buttonPanel.add(getOkButton(), null);

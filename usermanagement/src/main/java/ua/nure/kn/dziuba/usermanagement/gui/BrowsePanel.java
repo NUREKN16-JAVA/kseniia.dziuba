@@ -1,5 +1,6 @@
 package ua.nure.kn.dziuba.usermanagement.gui;
 
+import ua.nure.kn.dziuba.usermanagement.User;
 import ua.nure.kn.dziuba.usermanagement.db.DatabaseException;
 import ua.nure.kn.dziuba.usermanagement.util.Messages;
 
@@ -119,6 +120,12 @@ public class BrowsePanel extends JPanel implements ActionListener {
         if ("add".equalsIgnoreCase(actionCommand)) {
             this.setVisible(false);
             parent.showAddPanel();
+        }
+        if("delete".equalsIgnoreCase(actionCommand)){
+            Long userId = (long) userTable.getValueAt(userTable.getSelectedRow(), 0);
+            this.setVisible(false);
+            parent.setUserId(userId);
+            parent.showDeletePanel();
         }
     }
 }

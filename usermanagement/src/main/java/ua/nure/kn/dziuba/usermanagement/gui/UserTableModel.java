@@ -10,11 +10,16 @@ import java.util.List;
 
 public class UserTableModel extends AbstractTableModel {
     private List users = null;
+    private User user = null;
     private static final String[] COLUMN_NAMES = {"ID", Messages.getString("first_name"), Messages.getString("last_name")};
     private static final Class[] COLUMN_CLASSES = {Long.class, String.class, String.class};
 
     public UserTableModel(Collection users) {
         this.users = new ArrayList(users);
+    }
+
+    public UserTableModel(User user){
+        this.user = user;
     }
 
     @Override
