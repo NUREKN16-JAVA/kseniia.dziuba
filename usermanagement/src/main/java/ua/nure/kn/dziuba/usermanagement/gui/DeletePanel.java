@@ -14,6 +14,7 @@ import java.text.ParseException;
 public class DeletePanel extends JPanel implements ActionListener {
     private MainFrame parent;
     private JLabel infoLabel;
+    private JPanel infoPanel;
     private JPanel buttonPanel;
     private JButton okButton;
     private JButton cancelButton;
@@ -26,7 +27,7 @@ public class DeletePanel extends JPanel implements ActionListener {
     private void initialize() {
         this.setName("deletePanel");
         this.setLayout(new BorderLayout());
-        this.add(getLabel(), BorderLayout.CENTER);
+        this.add(getLabelPanel(), BorderLayout.CENTER);
         this.add(getButtonsPanel(), BorderLayout.SOUTH);
     }
 
@@ -38,6 +39,15 @@ public class DeletePanel extends JPanel implements ActionListener {
         }
         return buttonPanel;
     }
+
+    private JPanel getLabelPanel(){
+        if(infoPanel == null){
+            infoPanel = new JPanel();
+            infoPanel.add(getLabel(), null);
+        }
+        return infoPanel;
+    }
+
     private JButton getCancelButton() {
         if(cancelButton == null){
             cancelButton = new JButton();

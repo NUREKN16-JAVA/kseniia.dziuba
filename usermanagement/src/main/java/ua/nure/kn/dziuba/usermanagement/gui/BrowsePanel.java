@@ -127,5 +127,11 @@ public class BrowsePanel extends JPanel implements ActionListener {
             parent.setUserId(userId);
             parent.showDeletePanel();
         }
+        if("details".equalsIgnoreCase(actionCommand)){
+            Long userId = (long) userTable.getValueAt(userTable.getSelectedRow(), 0);
+            this.setVisible(false);
+            parent.setUserId(userId);
+            parent.showDetailsPanel();
+        }
     }
 }

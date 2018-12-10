@@ -19,6 +19,7 @@ public class MainFrame extends JFrame {
     private static final int FRAME_HEIGHT = 300;
     private AddPanel addPanel;
     private DeletePanel deletePanel;
+    private DetailsPanel detailsPanel;
     private UserDao dao;
     private Long userId;
 
@@ -99,6 +100,18 @@ public class MainFrame extends JFrame {
 
     public void setUserId(Long userId){
         this.userId = userId;
+    }
+
+    public void showDetailsPanel(){
+        this.showPanel(getDetailsPanel());
+    }
+
+    private JPanel getDetailsPanel() {
+        if(detailsPanel == null){
+            detailsPanel = new DetailsPanel(this);
+        }
+
+        return detailsPanel;
     }
 
     public User getUser() {
