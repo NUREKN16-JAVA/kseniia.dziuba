@@ -1,5 +1,6 @@
 package ua.nure.kn.dziuba.usermanagement.gui;
 
+import com.mockobjects.dynamic.Mock;
 import javafx.scene.input.DataFormat;
 import junit.extensions.jfcunit.JFCTestCase;
 import junit.extensions.jfcunit.JFCTestHelper;
@@ -9,26 +10,30 @@ import junit.extensions.jfcunit.finder.NamedComponentFinder;
 import junit.framework.TestCase;
 import ua.nure.kn.dziuba.usermanagement.db.DaoFactory;
 import ua.nure.kn.dziuba.usermanagement.db.DaoFactoryImpl;
+import ua.nure.kn.dziuba.usermanagement.db.MockDaoFactory;
 import ua.nure.kn.dziuba.usermanagement.db.MockUserDao;
 import ua.nure.kn.dziuba.usermanagement.util.Messages;
 
 import javax.swing.*;
 import java.awt.*;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 
 public class MainFrameTest extends JFCTestCase {
 
     private MainFrame mainFrame;
+    private Mock mockUserDao;
 
     public void setUp() throws Exception {
         super.setUp();
         try{
             Properties properties = new Properties();
-            properties.setProperty("dao.ua.nure.kn.dziuba.usermanagement.db.UserDao", MockUserDao.class.getName());
-            properties.setProperty("dao.factory", DaoFactoryImpl.class.getName());
+            properties.setProperty("dao.factory", MockDaoFactory.class.getName());
             DaoFactory.init(properties);
+            mockUserDao = ((MockDaoFactory)DaoFactory.getInstance()).getMockUserDao();
+            mockUserDao.expectAndReturn("findAll", new ArrayList());
 
             setHelper(new JFCTestHelper());
             mainFrame = new MainFrame();
@@ -39,9 +44,14 @@ public class MainFrameTest extends JFCTestCase {
     }
 
     public void tearDown() throws Exception {
-        mainFrame.setVisible(false);
-        getHelper().cleanUp(this);
-        super.tearDown();
+        try {
+            mockUserDao.verify();
+            mainFrame.setVisible(false);
+            getHelper().cleanUp(this);
+            super.tearDown();
+        }catch (Exception e){
+            fail(e.getMessage());
+        }
     }
 
     private Component find(Class componentClass, String name) {

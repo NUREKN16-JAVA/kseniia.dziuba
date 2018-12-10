@@ -5,11 +5,11 @@ import com.mockobjects.dynamic.Mock;
 public class MockDaoFactory extends DaoFactory {
     private Mock mockUserDao;
 
-    public MockDaoFactory(){
+    public MockDaoFactory() {
         mockUserDao = new Mock(UserDao.class);
     }
 
-    public Mock getMockUserDao(){
+    public Mock getMockUserDao() {
         return mockUserDao;
     }
 
