@@ -8,6 +8,7 @@ import junit.extensions.jfcunit.eventdata.MouseEventData;
 import junit.extensions.jfcunit.eventdata.StringEventData;
 import junit.extensions.jfcunit.finder.NamedComponentFinder;
 import junit.framework.TestCase;
+import ua.nure.kn.dziuba.usermanagement.User;
 import ua.nure.kn.dziuba.usermanagement.db.DaoFactory;
 import ua.nure.kn.dziuba.usermanagement.db.DaoFactoryImpl;
 import ua.nure.kn.dziuba.usermanagement.db.MockDaoFactory;
@@ -23,6 +24,9 @@ import java.util.Properties;
 
 public class MainFrameTest extends JFCTestCase {
 
+    private static final String FIRST_NAME = "Kseniia";
+    private static final String LAST_NAME = "Dziuba";
+    private static final Date NOW = new Date();
     private MainFrame mainFrame;
     private Mock mockUserDao;
 
@@ -79,6 +83,14 @@ public class MainFrameTest extends JFCTestCase {
     }
 
     public void testAddUser() {
+        User user = new User(FIRST_NAME, LAST_NAME, NOW);
+        User expectedUser = new User((long) 1, FIRST_NAME, LAST_NAME, NOW);
+        mockUserDao.expectAndReturn("create", user, expectedUser);
+
+        ArrayList users = new ArrayList();
+        users.add(user);
+        mockUserDao.expectAndReturn("findAll", users);
+
         JTable userTable = (JTable) find(JTable.class, "userTable");
         assertEquals(0, userTable.getRowCount());
 
@@ -92,11 +104,11 @@ public class MainFrameTest extends JFCTestCase {
         JButton okButton = (JButton) find(JButton.class, "okButton");
         find(JButton.class, "cancelButton");
 
-        getHelper().sendString(new StringEventData(this, firstNameField, "Kseniia"));
-        getHelper().sendString(new StringEventData(this, lastNameField, "Dziuba"));
+        getHelper().sendString(new StringEventData(this, firstNameField, FIRST_NAME));
+        getHelper().sendString(new StringEventData(this, lastNameField, LAST_NAME));
 
         DateFormat dateFormat = DateFormat.getDateInstance();
-        String date = dateFormat.format(new Date());
+        String date = dateFormat.format(NOW);
         getHelper().sendString(new StringEventData(this, dateOfBirthField, date));
 
         getHelper().enterClickAndLeave(new MouseEventData(this, okButton));
