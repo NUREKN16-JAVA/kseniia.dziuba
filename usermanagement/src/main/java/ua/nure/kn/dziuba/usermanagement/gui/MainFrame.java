@@ -22,6 +22,7 @@ public class MainFrame extends JFrame {
     private DetailsPanel detailsPanel;
     private UserDao dao;
     private Long userId;
+    private EditPanel editPanel;
 
     public MainFrame() {
         super();
@@ -40,14 +41,35 @@ public class MainFrame extends JFrame {
         this.setContentPane(getContentPanel());
     }
 
-    private JPanel getContentPanel() {
-        if (contentPanel == null) {
-            contentPanel = new JPanel();
-            contentPanel.setLayout(new BorderLayout());
-            contentPanel.add(getBrowsePanel(), BorderLayout.CENTER);
-        }
+    private void showPanel(JPanel panel) {
+        getContentPane().add(panel, BorderLayout.CENTER);
+        panel.setVisible(true);
+        panel.repaint();
+    }
 
-        return contentPanel;
+    public void showAddPanel() {
+        showPanel(getAddPanel());
+    }
+
+    public void showBrowsePanel() {
+        this.showPanel(getBrowsePanel());
+    }
+
+    public void showDeletePanel(User user) {
+        DeletePanel deletePanel = getDeletePanel();
+        ((DeletePanel)deletePanel).showDeletePanel(user);
+        this.showPanel(getDeletePanel());
+    }
+
+    public void showDetailsPanel(User user){
+        DetailsPanel detailsPanel = getDetailsPanel();
+        ((DetailsPanel)detailsPanel).showDetailsPanel(user);
+        this.showPanel(getDetailsPanel());
+    }
+    public void showEditPanel(User user){
+        EditPanel editPanel = getEditPanel();
+        ((EditPanel)editPanel).showEditPanel(user);
+        this.showPanel(getEditPanel());
     }
 
     private BrowsePanel getBrowsePanel() {
@@ -59,27 +81,19 @@ public class MainFrame extends JFrame {
         return browsePanel;
     }
 
-    public static void main(String args[]) {
-        MainFrame frame = new MainFrame();
-        frame.setVisible(true);
+    private EditPanel getEditPanel(){
+        if(editPanel== null){
+            editPanel = new EditPanel(this);
+        }
+        return editPanel;
     }
 
-    public void showAddPanel() {
-        showPanel(getAddPanel());
-    }
-
-    private void showPanel(JPanel panel) {
-        getContentPane().add(panel, BorderLayout.CENTER);
-        panel.setVisible(true);
-        panel.repaint();
-    }
-
-    private AddPanel getAddPanel() {
-        if (addPanel == null) {
-            addPanel = new AddPanel(this);
+    private DetailsPanel getDetailsPanel() {
+        if(detailsPanel == null){
+            detailsPanel = new DetailsPanel(this);
         }
 
-        return addPanel;
+        return detailsPanel;
     }
 
     private DeletePanel getDeletePanel() {
@@ -90,28 +104,22 @@ public class MainFrame extends JFrame {
         return deletePanel;
     }
 
-    public void showBrowsePanel() {
-        this.showPanel(getBrowsePanel());
-    }
-
-    public void showDeletePanel() {
-        this.showPanel(getDeletePanel());
-    }
-
-    public void setUserId(Long userId){
-        this.userId = userId;
-    }
-
-    public void showDetailsPanel(){
-        this.showPanel(getDetailsPanel());
-    }
-
-    private JPanel getDetailsPanel() {
-        if(detailsPanel == null){
-            detailsPanel = new DetailsPanel(this);
+    private AddPanel getAddPanel() {
+        if (addPanel == null) {
+            addPanel = new AddPanel(this);
         }
 
-        return detailsPanel;
+        return addPanel;
+    }
+
+    private JPanel getContentPanel() {
+        if (contentPanel == null) {
+            contentPanel = new JPanel();
+            contentPanel.setLayout(new BorderLayout());
+            contentPanel.add(getBrowsePanel(), BorderLayout.CENTER);
+        }
+
+        return contentPanel;
     }
 
     public User getUser() {
@@ -121,5 +129,10 @@ public class MainFrame extends JFrame {
             fail(e.getMessage());
         }
         return null;
+    }
+
+    public static void main(String args[]) {
+        MainFrame frame = new MainFrame();
+        frame.setVisible(true);
     }
 }

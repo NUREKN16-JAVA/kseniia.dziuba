@@ -1,6 +1,5 @@
 package ua.nure.kn.dziuba.usermanagement.gui;
 
-import ua.nure.kn.dziuba.usermanagement.User;
 import ua.nure.kn.dziuba.usermanagement.db.DatabaseException;
 import ua.nure.kn.dziuba.usermanagement.util.Messages;
 
@@ -9,6 +8,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import static junit.framework.Assert.fail;
 
 public class BrowsePanel extends JPanel implements ActionListener {
 
@@ -124,14 +125,29 @@ public class BrowsePanel extends JPanel implements ActionListener {
         if("delete".equalsIgnoreCase(actionCommand)){
             Long userId = (long) userTable.getValueAt(userTable.getSelectedRow(), 0);
             this.setVisible(false);
-            parent.setUserId(userId);
-            parent.showDeletePanel();
+            try{
+                parent.showDeletePanel(parent.getDao().find(userId));
+            }catch (DatabaseException e1){
+                fail(e1.getMessage());
+            }
         }
         if("details".equalsIgnoreCase(actionCommand)){
             Long userId = (long) userTable.getValueAt(userTable.getSelectedRow(), 0);
             this.setVisible(false);
-            parent.setUserId(userId);
-            parent.showDetailsPanel();
+            try{
+                parent.showDetailsPanel(parent.getDao().find(userId));
+            }catch (DatabaseException e1){
+                fail(e1.getMessage());
+            }
+        }
+        if("edit".equalsIgnoreCase(actionCommand)){
+            Long userId = (long) userTable.getValueAt(userTable.getSelectedRow(), 0);
+            this.setVisible(false);
+            try{
+                parent.showEditPanel(parent.getDao().find(userId));
+            }catch (DatabaseException e1){
+                fail(e1.getMessage());
+            }
         }
     }
 }
