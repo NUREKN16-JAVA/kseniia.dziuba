@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import static junit.framework.Assert.fail;
 
 public class BrowsePanel extends JPanel implements ActionListener {
-
     private MainFrame parent;
     private JPanel buttonPanel;
     private JButton addButton;
@@ -22,11 +21,17 @@ public class BrowsePanel extends JPanel implements ActionListener {
     private JScrollPane tablePanel;
     private JTable userTable;
 
+    /**
+     * {@inheritDoc}
+     * */
     public BrowsePanel(MainFrame frame) {
         parent = frame;
         initialize();
     }
 
+    /**
+     * {@inheritDoc}
+     * */
     private void initialize() {
         this.setLayout(new BorderLayout());
         this.add(getTablePanel(), BorderLayout.CENTER);
@@ -34,6 +39,11 @@ public class BrowsePanel extends JPanel implements ActionListener {
         this.setName("browsePanel");
     }
 
+    /**
+     * Gets singleton buttons panel.
+     *
+     * @return buttonPanel.
+     * */
     private Component getButtonsPanel() {
         if (buttonPanel == null) {
             buttonPanel = new JPanel();
@@ -45,6 +55,11 @@ public class BrowsePanel extends JPanel implements ActionListener {
         return buttonPanel;
     }
 
+    /**
+     * Gets singleton "details" button.
+     *
+     * @return detailsButton.
+     * */
     private JButton getDetailsButton() {
         if (detailsButton == null) {
             detailsButton = new JButton();
@@ -56,6 +71,11 @@ public class BrowsePanel extends JPanel implements ActionListener {
         return detailsButton;
     }
 
+    /**
+     * Gets singleton "delete" button.
+     *
+     * @return deleteButton.
+     * */
     private JButton getDeleteButton() {
         if (deleteButton == null) {
             deleteButton = new JButton();
@@ -67,6 +87,11 @@ public class BrowsePanel extends JPanel implements ActionListener {
         return deleteButton;
     }
 
+    /**
+     * Gets singleton "edit" button.
+     *
+     * @return editButton.
+     * */
     private JButton getEditButton() {
         if (editButton == null) {
             editButton = new JButton();
@@ -78,6 +103,11 @@ public class BrowsePanel extends JPanel implements ActionListener {
         return editButton;
     }
 
+    /**
+     * Gets singleton "add" button.
+     *
+     * @return addButton.
+     * */
     private JButton getAddButton() {
         if (addButton == null) {
             addButton = new JButton();
@@ -89,6 +119,11 @@ public class BrowsePanel extends JPanel implements ActionListener {
         return addButton;
     }
 
+    /**
+     * Gets singleton table panel.
+     *
+     * @return tablePanel.
+     * */
     private JScrollPane getTablePanel() {
         if (tablePanel == null) {
             tablePanel = new JScrollPane(getUserTable());
@@ -96,6 +131,11 @@ public class BrowsePanel extends JPanel implements ActionListener {
         return tablePanel;
     }
 
+    /**
+     * Gets singleton user table.
+     *
+     * @return userTable.
+     * */
     private JTable getUserTable() {
         if (userTable == null) {
             userTable = new JTable();
@@ -104,6 +144,9 @@ public class BrowsePanel extends JPanel implements ActionListener {
         return userTable;
     }
 
+    /**
+     * Initializes table of users.
+     * */
     public void initTable(){
         UserTableModel model;
         try {
@@ -115,6 +158,9 @@ public class BrowsePanel extends JPanel implements ActionListener {
         userTable.setModel(model);
     }
 
+    /**
+     * Performs actions if buttons clicked.
+     * */
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();

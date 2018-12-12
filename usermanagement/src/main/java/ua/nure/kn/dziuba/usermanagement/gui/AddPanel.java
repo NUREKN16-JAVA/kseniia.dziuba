@@ -7,12 +7,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AddPanel extends AbstractPanel{
-
+    /**
+     * {@inheritDoc}
+     * */
     public AddPanel(MainFrame frame){
         super(frame);
         this.setName("addPanel");
     }
 
+    /**
+     * {@inheritDoc}
+     * */
     @Override
     public void initialize() {
         this.setLayout(new BorderLayout());
@@ -20,6 +25,9 @@ public class AddPanel extends AbstractPanel{
         this.add(getButtonsPanel(), BorderLayout.SOUTH);
     }
 
+    /**
+     * {@inheritDoc}
+     * */
     @Override
     public void performAction() {
         User user = new User();

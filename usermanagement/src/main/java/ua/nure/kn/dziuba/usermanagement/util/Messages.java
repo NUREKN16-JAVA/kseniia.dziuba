@@ -12,6 +12,12 @@ public class Messages {
 
     }
 
+    /**
+     * Gets String in depend on key in messages.properties file.
+     *
+     * @param key to find string on.
+     * @return string in depend on key.
+     * */
     public static String getString(String key) {
         try {
             return RESOURCE_BUNDLE.getString(key);

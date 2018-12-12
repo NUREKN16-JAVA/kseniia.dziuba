@@ -58,6 +58,13 @@ public class MainFrameTest extends JFCTestCase {
         }
     }
 
+    /**
+     * Finds component on frame.
+     *
+     * @param componentClass on frame.
+     * @param name of component on frame.
+     * @return found component.
+     * */
     private Component find(Class componentClass, String name) {
         NamedComponentFinder finder = new NamedComponentFinder(componentClass, name);
         finder.setWait(0);
@@ -67,6 +74,14 @@ public class MainFrameTest extends JFCTestCase {
         return component;
     }
 
+    /**
+     * Tests browse controls.
+     *
+     * Expected results: 3 columns in userTable.
+     *                   "ID" column on the first place.
+     *                   "First Name" column on the second place.
+     *                   "Last Name" column on the third place.
+     * */
     public void testBrowseControls() {
         find(JPanel.class, "browsePanel");
 
@@ -82,6 +97,22 @@ public class MainFrameTest extends JFCTestCase {
         find(JButton.class, "detailsButton");
     }
 
+    /**
+     * Tests add user view.
+     *
+     * Expected results: user with ID = 1, FIRST_NAME = "Kseniia", LAST_NAME = "Dziuba", DateOfBirth = now tobe created.
+     *                   method "findAll" called after adding to fill table.
+     *                   no rows in table before clicking "add" button.
+     *                   "addPanel" was found.
+     *                   "firstNameField" was found.
+     *                   "lastNameField" was found.
+     *                   "dateOfBirthField" was found.
+     *                   "okButton" was found.
+     *                   "cancelButton" was found.
+     *                   "browsePanel" was found after clicking "Add" button.
+     *                   "userTable" was found.
+     *                   1 row in table after adding user.
+     * */
     public void testAddUser() {
         User user = new User(FIRST_NAME, LAST_NAME, NOW);
         User expectedUser = new User((long) 1, FIRST_NAME, LAST_NAME, NOW);

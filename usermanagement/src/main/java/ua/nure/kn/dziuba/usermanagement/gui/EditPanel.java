@@ -11,17 +11,26 @@ import java.text.DateFormat;
 public class EditPanel extends AbstractPanel implements ActionListener {
     private User user;
 
+    /**
+     * {@inheritDoc}
+     * */
     public EditPanel(MainFrame frame){
         super(frame);
         this.setName("editPanel");
     }
 
+    /**
+     * {@inheritDoc}
+     * */
     public void initialize() {
         this.setLayout(new BorderLayout());
         this.add(getFieldPanel(), BorderLayout.NORTH);
         this.add(getButtonsPanel(), BorderLayout.SOUTH);
     }
 
+    /**
+     * {@inheritDoc}
+     * */
     @Override
     public void performAction() {
         setUserInfo(user);
@@ -33,6 +42,9 @@ public class EditPanel extends AbstractPanel implements ActionListener {
         user = null;
     }
 
+    /**
+     * Shows edit panel.
+     * */
     public void showEditPanel(User user) {
         this.user = user;
         getFirstNameField().setText(user.getFirstName());

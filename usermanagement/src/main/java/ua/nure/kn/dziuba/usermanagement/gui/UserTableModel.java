@@ -14,24 +14,34 @@ public class UserTableModel extends AbstractTableModel {
     private static final String[] COLUMN_NAMES = {"ID", Messages.getString("first_name"), Messages.getString("last_name")};
     private static final Class[] COLUMN_CLASSES = {Long.class, String.class, String.class};
 
+    /**
+     * Creates table model in depend on collection of users.
+     *
+     * @param users to create model.
+     * */
     public UserTableModel(Collection users) {
         this.users = new ArrayList(users);
     }
 
-    public UserTableModel(User user){
-        this.user = user;
-    }
-
+    /**
+     * {@inheritDoc]}
+     * */
     @Override
     public int getRowCount() {
         return users.size();
     }
 
+    /**
+     * {@inheritDoc]}
+     * */
     @Override
     public int getColumnCount() {
         return COLUMN_NAMES.length;
     }
 
+    /**
+     * {@inheritDoc]}
+     * */
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         User user = (User) users.get(rowIndex);
@@ -46,10 +56,22 @@ public class UserTableModel extends AbstractTableModel {
         return null;
     }
 
+    /**
+     * Gets class in depend on columnIndex.
+     *
+     * @param columnIndex of class to return.
+     * @return Class on columnIndex position.
+     * */
     public Class getColumnClass(int columnIndex){
         return COLUMN_CLASSES[columnIndex];
     }
 
+    /**
+     * Gets class name in depend on columnIndex.
+     *
+     * @param columnIndex of class name to return.
+     * @return String class name on columnIndex position.
+     * */
     public String getColumnName(int columnIndex){
         return COLUMN_NAMES[columnIndex];
     }
