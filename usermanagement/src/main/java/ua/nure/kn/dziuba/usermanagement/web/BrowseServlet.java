@@ -7,10 +7,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.io.IOException;
 import java.util.Collection;
-
-import static junit.framework.Assert.fail;
 
 public class BrowseServlet extends HttpServlet {
     @Override
@@ -27,7 +26,7 @@ public class BrowseServlet extends HttpServlet {
         } catch (DatabaseException e) {
             throw new ServletException(e);
         } catch (IOException e) {
-            fail(e.getMessage());
+            e.printStackTrace();
         }
     }
 }
