@@ -5,9 +5,9 @@
 </head>
 <body>
 <form action="<%=request.getContextPath()%>/add" method="post">
-    First Name: <input type="text" name="firstName" value=""><br/>
-    Last Name: <input type="text" name="lastName" value=""><br/>
-    Date of Birth: <input name="dateOfBirth" value=""><br>
+    <p>First Name: <input type="text" name="firstName" value=""></p>
+    <p>Last Name: <input type="text" name="lastName" value=""></p>
+    <p>Date of Birth: <input name="dateOfBirth" value=""></p>
     <input type="submit" name="okButton" value="Ok">
     <input type="submit" name="cancelButton" value="Cancel">
 </form>

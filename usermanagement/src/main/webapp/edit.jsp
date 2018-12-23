@@ -8,10 +8,10 @@
 <body>
 <form action="<%=request.getContextPath()%>/edit" method="post">
     <input type="hidden" name="id" value="${user.id}">
-    First Name: <input type="text" name="firstName" value="${user.firstName}"><br/>
-    Last Name: <input type="text" name="lastName" value="${user.lastName}"><br/>
-    Date of Birth: <input name="dateOfBirth"
-                          value="<fmt:formatDate value="${user.dateOfBirth}" type="date" dateStyle="medium"/>"><br>
+    <p>First Name: <input type="text" name="firstName" value="${user.firstName}"></p>
+    <p>Last Name: <input type="text" name="lastName" value="${user.lastName}"></p>
+    <p>Date of Birth: <input name="dateOfBirth"
+                             value="<fmt:formatDate value="${user.dateOfBirth}" type="date" dateStyle="medium"/>"></p>
     <input type="submit" name="okButton" value="Ok">
     <input type="submit" name="cancelButton" value="Cancel">
 </form>

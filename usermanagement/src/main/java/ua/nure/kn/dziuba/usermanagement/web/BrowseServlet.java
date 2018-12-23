@@ -47,10 +47,8 @@ public class BrowseServlet extends HttpServlet {
     }
 
     private void setUserToSession(HttpServletRequest req, HttpServletResponse resp, String editServlet) throws ServletException, IOException {
-        String id = req.getParameter(ID);
-        if (id == null && id.trim().length() == 0) {
-            req.setAttribute("error", "You have to select a user.");
-            req.getRequestDispatcher(BROWSE_JSP).forward(req, resp);
+        String id = getUserId(req, resp);
+        if (id == null) {
             return;
         }
         try {
@@ -69,8 +67,9 @@ public class BrowseServlet extends HttpServlet {
         if (id == null) {
             return;
         }
+
         try {
-            User user = DaoFactory.getInstance().getUserDao().find(Long.parseLong(id));
+            User user = DaoFactory.getInstance().getUserDao().find(new Long(id));
             DaoFactory.getInstance().getUserDao().delete(user);
         } catch (DatabaseException e) {
             req.setAttribute("error", "ERROR:" + e.toString());
