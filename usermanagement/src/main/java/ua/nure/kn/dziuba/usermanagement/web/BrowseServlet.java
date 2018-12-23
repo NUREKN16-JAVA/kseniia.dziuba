@@ -13,8 +13,34 @@ import java.util.Collection;
 
 public class BrowseServlet extends HttpServlet {
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        browse(req, resp);
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException{
+        if (req.getParameter("addButton") != null) {
+            add(req, resp);
+        } else if (req.getParameter("editButton") != null) {
+            edit(req, resp);
+        } else if (req.getParameter("deleteButton") != null) {
+            delete(req, resp);
+        } else if (req.getParameter("detailsButton") != null) {
+            details(req, resp);
+        } else {
+            browse(req, resp);
+        }
+    }
+
+    private void add(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
+
+    }
+
+    private void edit(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
+
+    }
+
+    private void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
+
+    }
+
+    private void details(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
+
     }
 
     private void browse(HttpServletRequest req, HttpServletResponse resp) throws ServletException {

@@ -23,10 +23,10 @@
             </tr>
         </c:forEach>
     </table>
-    <input type="submit" name="Add" value="Add">
-    <input type="submit" name="Edit" value="Edit">
-    <input type="submit" name="Delete" value="Delete">
-    <input type="submit" name="Details" value="Details">
+    <input type="submit" name="addButton" value="Add">
+    <input type="submit" name="editButton" value="Edit">
+    <input type="submit" name="deleteButton" value="Delete">
+    <input type="submit" name="detailsButton" value="Details">
 </form>
 </body>
 </html>
