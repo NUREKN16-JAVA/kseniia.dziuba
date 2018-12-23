@@ -4,7 +4,7 @@
     <title>User management/Browse</title>
 </head>
 <body>
-<form action="<%=request.getContextPath()%>/browse>" method="post">
+<form action="<%=request.getContextPath()%>/browse" method="post">
     <table id="UserTable" border=1>
         <tr>
             <th></th>
@@ -15,7 +15,7 @@
         <c:forEach var="user" items="${sessionScope.users}">
             <tr>
                 <td>
-                    <input type="radio" name="id" id="id" value="">
+                    <input type="radio" name="id" id="id" value="${user.id}">
                 </td>
                 <td>${user.firstName}</td>
                 <td>${user.lastName}</td>
@@ -28,5 +28,10 @@
     <input type="submit" name="deleteButton" value="Delete">
     <input type="submit" name="detailsButton" value="Details">
 </form>
+<c:if test="$(requestScope.error != null)">
+    <script>
+        alert('$(requestScope.error != null)')
+    </script>
+</c:if>
 </body>
 </html>

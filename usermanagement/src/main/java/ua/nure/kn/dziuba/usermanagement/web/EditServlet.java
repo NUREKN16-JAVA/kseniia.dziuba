@@ -10,6 +10,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.ValidationException;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -23,12 +24,19 @@ public class EditServlet extends HttpServlet {
         } else if (req.getParameter("cancelButton") != null) {
             doCancel(req, resp);
         } else {
-            showPage();
+            showPage(req, resp);
         }
     }
 
     private void doOk(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = getUser(req);
+        User user = null;
+        try {
+            user = getUser(req);
+        } catch (ValidationException e) {
+            req.setAttribute("error", e.getMessage());
+            showPage(req, resp);
+            return;
+        }
         try {
             DaoFactory.getInstance().getUserDao().update(user);
         } catch (DatabaseException e) {
@@ -38,25 +46,37 @@ public class EditServlet extends HttpServlet {
                 e1.printStackTrace();
             }
         }
-        req.getRequestDispatcher("browse.jsp").forward(req, resp);
+        req.getRequestDispatcher("/browse").forward(req, resp);
     }
 
-    private void doCancel(HttpServletRequest req, HttpServletResponse resp) {
-
+    private void doCancel(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/browse").forward(req, resp);
     }
 
-    private void showPage() {
-
+    private void showPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/edit.jsp").forward(req, resp);
     }
 
-    private User getUser(HttpServletRequest req) {
+    private User getUser(HttpServletRequest req) throws ValidationException {
         User user = new User();
         String id = req.getParameter("id");
         String firstName = req.getParameter("firstName");
         String lastName = req.getParameter("lastName");
         String dateOfBirth = req.getParameter("dateOfBirth");
 
-        if(id!=null){
+        if (firstName == "") {
+            throw new ValidationException("First Name is empty");
+        }
+
+        if (lastName == null) {
+            throw new ValidationException("Last Name is empty");
+        }
+
+        if (dateOfBirth == null) {
+            throw new ValidationException("Date of Birth is empty");
+        }
+
+        if (id != null) {
             user.setId(new Long(id));
         }
         user.setFirstName(firstName);
@@ -64,7 +84,7 @@ public class EditServlet extends HttpServlet {
         try {
             user.setDateOfBirth(DateFormat.getDateInstance().parse(dateOfBirth));
         } catch (ParseException e) {
-            e.printStackTrace();
+            throw new ValidationException("Date format is invalid.");
         }
         return user;
     }
