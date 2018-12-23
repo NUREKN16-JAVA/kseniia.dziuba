@@ -50,8 +50,30 @@ public class BrowseServlet extends HttpServlet {
         req.getRequestDispatcher("/edit").forward(req, resp);
     }
 
-    private void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
+    private void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = getUserId(req, resp);
+        if (id == null) {
+            return;
+        }
+        try {
+            User user = DaoFactory.getInstance().getUserDao().find(Long.parseLong(id));
+            DaoFactory.getInstance().getUserDao().delete(user);
+        } catch (DatabaseException e) {
+            req.setAttribute("error", "ERROR:" + e.toString());
+            req.getRequestDispatcher("/browse.jsp").forward(req, resp);
+            return;
+        }
+        resp.sendRedirect("/usermanagement/browse");
+    }
 
+    private String getUserId(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("id");
+        if (id == null || id.trim().isEmpty()) {
+            req.setAttribute("error", "You have to select a user.");
+            req.getRequestDispatcher("/browse.jsp").forward(req, resp);
+            return null;
+        }
+        return id;
     }
 
     private void details(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
