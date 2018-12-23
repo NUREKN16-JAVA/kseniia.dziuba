@@ -64,15 +64,15 @@ public class EditServlet extends HttpServlet {
         String lastName = req.getParameter("lastName");
         String dateOfBirth = req.getParameter("dateOfBirth");
 
-        if (firstName == "") {
+        if (firstName.isEmpty()) {
             throw new ValidationException("First Name is empty");
         }
 
-        if (lastName == null) {
+        if (lastName.isEmpty()) {
             throw new ValidationException("Last Name is empty");
         }
 
-        if (dateOfBirth == null) {
+        if (dateOfBirth.isEmpty()) {
             throw new ValidationException("Date of Birth is empty");
         }
 
