@@ -1,22 +1,21 @@
 package ua.nure.kn.dziuba.usermanagement.web;
 
-import junit.framework.TestCase;
 import ua.nure.kn.dziuba.usermanagement.User;
 import ua.nure.kn.dziuba.usermanagement.db.DatabaseException;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class BrowseServletTest extends MockServletTestCase {
 
+    private static final String EDIT_BUTTON = "editButton";
+    private static final String DETAILS_BUTTON = "detailsButton";
+    private static final String DELETE_BUTTON = "deleteButton";
+
     public void setUp() throws Exception {
         super.setUp();
         createServlet(BrowseServlet.class);
-    }
-
-    public void tearDown() throws Exception {
     }
 
     public void testBrowse() {
@@ -36,7 +35,7 @@ public class BrowseServletTest extends MockServletTestCase {
         User user = createUserForTest();
 
         getMockUserDao().expectAndReturn("find", new Long(1000), user);
-        addRequestParameter("editButton", "Edit");
+        addRequestParameter(EDIT_BUTTON, "Edit");
         addRequestParameter("id", "1000");
         doPost();
         User sessionUser = (User) getWebMockObjectFactory().getMockSession().getAttribute("user");
@@ -47,7 +46,7 @@ public class BrowseServletTest extends MockServletTestCase {
     public void testDetails() {
         User expectedUser = createUserForTest();
         getMockUserDao().expectAndReturn("find", new Long(1000), expectedUser);
-        addRequestParameter("detailsButton", "Details");
+        addRequestParameter(DETAILS_BUTTON, "Details");
         addRequestParameter("id", "1000");
         doPost();
         User actualUser = (User) getWebMockObjectFactory().getMockSession().getAttribute("user");
@@ -59,7 +58,7 @@ public class BrowseServletTest extends MockServletTestCase {
         User expectedUser = createUserForTest();
         getMockUserDao().expectAndReturn("find", new Long(1000), expectedUser);
         getMockUserDao().expect("delete", expectedUser);
-        addRequestParameter("deleteButton", "Delete");
+        addRequestParameter(DELETE_BUTTON, "Delete");
         addRequestParameter("id", "1000");
         doPost();
     }
@@ -67,7 +66,7 @@ public class BrowseServletTest extends MockServletTestCase {
     public void testDeleteWithInvalidId() {
         String expectedErrorMessage = "Incorrect id";
         getMockUserDao().expectAndThrow("find", new Long(1000), new DatabaseException(expectedErrorMessage));
-        addRequestParameter("deleteButton", "Delete");
+        addRequestParameter(DELETE_BUTTON, "Delete");
         addRequestParameter("id", "1000");
         doPost();
         String errorMessage = (String) getWebMockObjectFactory().getMockRequest().getAttribute("error");

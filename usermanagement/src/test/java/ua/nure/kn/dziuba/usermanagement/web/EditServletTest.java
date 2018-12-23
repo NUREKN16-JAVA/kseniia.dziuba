@@ -8,6 +8,8 @@ import java.util.Date;
 
 public class EditServletTest extends MockServletTestCase {
 
+    private static final String OK_BUTTON = "okButton";
+
     public void setUp() throws Exception {
         super.setUp();
         createServlet(EditServlet.class);
@@ -20,7 +22,7 @@ public class EditServletTest extends MockServletTestCase {
         addRequestParameter("firstName", "John");
         addRequestParameter("lastName", "Doe");
         addRequestParameter("dateOfBirth", DateFormat.getDateInstance().format(new Date()));
-        addRequestParameter("okButton", "Ok");
+        addRequestParameter(OK_BUTTON, "Ok");
         doPost();
     }
 
@@ -29,7 +31,7 @@ public class EditServletTest extends MockServletTestCase {
         addRequestParameter("firstName", "");
         addRequestParameter("lastName", "Doe");
         addRequestParameter("dateOfBirth", DateFormat.getDateInstance().format(new Date()));
-        addRequestParameter("okButton", "Ok");
+        addRequestParameter(OK_BUTTON, "Ok");
         doPost();
         String errorMessage = (String) getWebMockObjectFactory().getMockRequest().getAttribute("error");
         assertNotNull("Couldn't find error message in session", errorMessage);
@@ -40,7 +42,7 @@ public class EditServletTest extends MockServletTestCase {
         addRequestParameter("firstName", "John");
         addRequestParameter("lastName", "");
         addRequestParameter("dateOfBirth", DateFormat.getDateInstance().format(new Date()));
-        addRequestParameter("okButton", "Ok");
+        addRequestParameter(OK_BUTTON, "Ok");
         doPost();
         String errorMessage = (String) getWebMockObjectFactory().getMockRequest().getAttribute("error");
         assertNotNull("Couldn't find error message in session", errorMessage);
@@ -51,7 +53,7 @@ public class EditServletTest extends MockServletTestCase {
         addRequestParameter("firstName", "John");
         addRequestParameter("lastName", "Doe");
         addRequestParameter("dateOfBirth", "");
-        addRequestParameter("okButton", "Ok");
+        addRequestParameter(OK_BUTTON, "Ok");
         doPost();
         String errorMessage = (String) getWebMockObjectFactory().getMockRequest().getAttribute("error");
         assertNotNull("Couldn't find error message in session", errorMessage);
@@ -61,7 +63,7 @@ public class EditServletTest extends MockServletTestCase {
         addRequestParameter("firstName", "John");
         addRequestParameter("lastName", "Doe");
         addRequestParameter("dateOfBirth", "invalidDate");
-        addRequestParameter("okButton", "Ok");
+        addRequestParameter(OK_BUTTON, "Ok");
         doPost();
         String errorMessage = (String) getWebMockObjectFactory().getMockRequest().getAttribute("error");
         assertNotNull("Couldn't find error message in session", errorMessage);

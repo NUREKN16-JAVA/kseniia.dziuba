@@ -17,11 +17,20 @@ import java.text.ParseException;
 import java.util.Date;
 
 public class EditServlet extends HttpServlet {
+    private static final String OK_BUTTON = "okButton";
+    private static final String CANCEL_BUTTON = "cancelButton";
+    private static final String BROWSE_SERVLET = "/browse";
+    private static final String EDIT_JSP = "/edit.jsp";
+    private static final String ID = "id";
+    private static final String FIRST_NAME = "firstName";
+    private static final String LAST_NAME = "lastName";
+    private static final String DATE_OF_BIRTH = "dateOfBirth";
+
     @Override
     public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getParameter("okButton") != null) {
+        if (req.getParameter(OK_BUTTON) != null) {
             doOk(req, resp);
-        } else if (req.getParameter("cancelButton") != null) {
+        } else if (req.getParameter(CANCEL_BUTTON) != null) {
             doCancel(req, resp);
         } else {
             showPage(req, resp);
@@ -46,23 +55,23 @@ public class EditServlet extends HttpServlet {
                 e1.printStackTrace();
             }
         }
-        req.getRequestDispatcher("/browse").forward(req, resp);
+        req.getRequestDispatcher(BROWSE_SERVLET).forward(req, resp);
     }
 
     private void doCancel(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/browse").forward(req, resp);
+        req.getRequestDispatcher(BROWSE_SERVLET).forward(req, resp);
     }
 
     protected void showPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/edit.jsp").forward(req, resp);
+        req.getRequestDispatcher(EDIT_JSP).forward(req, resp);
     }
 
     private User getUser(HttpServletRequest req) throws ValidationException {
         User user = new User();
-        String id = req.getParameter("id");
-        String firstName = req.getParameter("firstName");
-        String lastName = req.getParameter("lastName");
-        String dateOfBirth = req.getParameter("dateOfBirth");
+        String id = req.getParameter(ID);
+        String firstName = req.getParameter(FIRST_NAME);
+        String lastName = req.getParameter(LAST_NAME);
+        String dateOfBirth = req.getParameter(DATE_OF_BIRTH);
 
         if (firstName.isEmpty()) {
             throw new ValidationException("First Name is empty");

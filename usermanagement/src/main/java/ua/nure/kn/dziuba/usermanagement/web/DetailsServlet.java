@@ -11,14 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class DetailsServlet extends HttpServlet {
+    private static final String BROWSE_SERVLET = "/browse";
+    private static final String DETAILS_JSP = "/details.jsp";
+    private static final String BACK_BUTTON = "backButton";
+
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(req.getParameter("backButton") != null){
+        if(req.getParameter(BACK_BUTTON) != null){
             req.getSession(true).removeAttribute("user");
-            req.getRequestDispatcher("/browse").forward(req, resp);
+            req.getRequestDispatcher(BROWSE_SERVLET).forward(req, resp);
         }
         else{
-            req.getRequestDispatcher("/details.jsp").forward(req, resp);
+            req.getRequestDispatcher(DETAILS_JSP).forward(req, resp);
         }
     }
 }

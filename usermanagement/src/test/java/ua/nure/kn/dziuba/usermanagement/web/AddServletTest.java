@@ -1,13 +1,13 @@
 package ua.nure.kn.dziuba.usermanagement.web;
 
-import junit.framework.TestCase;
 import ua.nure.kn.dziuba.usermanagement.User;
-import ua.nure.kn.dziuba.usermanagement.gui.AddPanel;
 
 import java.text.DateFormat;
 import java.util.Date;
 
 public class AddServletTest extends MockServletTestCase {
+
+    private static final String OK_BUTTON = "okButton";
 
     public void setUp() throws Exception {
         super.setUp();
@@ -24,7 +24,7 @@ public class AddServletTest extends MockServletTestCase {
         addRequestParameter("firstName", "John");
         addRequestParameter("lastName", "Doe");
         addRequestParameter("dateOfBirth", DateFormat.getDateInstance().format(new Date()));
-        addRequestParameter("okButton", "Ok");
+        addRequestParameter(OK_BUTTON, "Ok");
         doPost();
     }
 
@@ -32,7 +32,7 @@ public class AddServletTest extends MockServletTestCase {
         addRequestParameter("firstName", "");
         addRequestParameter("lastName", "Doe");
         addRequestParameter("dateOfBirth", DateFormat.getDateInstance().format(new Date()));
-        addRequestParameter("okButton", "Ok");
+        addRequestParameter(OK_BUTTON, "Ok");
         doPost();
         String errorMessage = (String) getWebMockObjectFactory().getMockRequest().getAttribute("error");
         assertNotNull("Couldn't find error message in session", errorMessage);
@@ -42,7 +42,7 @@ public class AddServletTest extends MockServletTestCase {
         addRequestParameter("firstName", "John");
         addRequestParameter("lastName", "");
         addRequestParameter("dateOfBirth", DateFormat.getDateInstance().format(new Date()));
-        addRequestParameter("okButton", "Ok");
+        addRequestParameter(OK_BUTTON, "Ok");
         doPost();
         String errorMessage = (String) getWebMockObjectFactory().getMockRequest().getAttribute("error");
         assertNotNull("Couldn't find error message in session", errorMessage);
@@ -52,7 +52,7 @@ public class AddServletTest extends MockServletTestCase {
         addRequestParameter("firstName", "John");
         addRequestParameter("lastName", "Doe");
         addRequestParameter("dateOfBirth", "");
-        addRequestParameter("okButton", "Ok");
+        addRequestParameter(OK_BUTTON, "Ok");
         doPost();
         String errorMessage = (String) getWebMockObjectFactory().getMockRequest().getAttribute("error");
         assertNotNull("Couldn't find error message in session", errorMessage);
@@ -62,7 +62,7 @@ public class AddServletTest extends MockServletTestCase {
         addRequestParameter("firstName", "John");
         addRequestParameter("lastName", "Doe");
         addRequestParameter("dateOfBirth", "invalidDate");
-        addRequestParameter("okButton", "Ok");
+        addRequestParameter(OK_BUTTON, "Ok");
         doPost();
         String errorMessage = (String) getWebMockObjectFactory().getMockRequest().getAttribute("error");
         assertNotNull("Couldn't find error message in session", errorMessage);
