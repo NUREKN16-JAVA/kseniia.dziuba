@@ -1,5 +1,6 @@
 package ua.nure.kn.dziuba.usermanagement.web;
 
+import ua.nure.kn.dziuba.usermanagement.User;
 import ua.nure.kn.dziuba.usermanagement.db.DaoFactory;
 import ua.nure.kn.dziuba.usermanagement.db.DatabaseException;
 
@@ -13,11 +14,11 @@ import java.util.Collection;
 
 public class BrowseServlet extends HttpServlet {
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException{
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getParameter("addButton") != null) {
             add(req, resp);
         } else if (req.getParameter("editButton") != null) {
-            edit(req, resp);
+                edit(req, resp);
         } else if (req.getParameter("deleteButton") != null) {
             delete(req, resp);
         } else if (req.getParameter("detailsButton") != null) {
@@ -31,8 +32,21 @@ public class BrowseServlet extends HttpServlet {
 
     }
 
-    private void edit(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
-
+    private void edit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("id");
+        if (id == null && id.length() == 0) {
+            req.setAttribute("error", "You have to select a user.");
+                req.getRequestDispatcher("/browse.jsp").forward(req, resp);
+            return;
+        }
+        try {
+            User user = DaoFactory.getInstance().getUserDao().find(new Long(id));
+            req.getSession().setAttribute("user", user);
+        } catch (DatabaseException e) {
+            req.setAttribute("error", "ERROR:" + e.toString());
+            req.getRequestDispatcher("/browse.jsp").forward(req, resp);
+        }
+        req.getRequestDispatcher("/edit.jsp").forward(req, resp);
     }
 
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException {

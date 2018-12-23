@@ -2,9 +2,11 @@ package ua.nure.kn.dziuba.usermanagement.web;
 
 import com.mockobjects.dynamic.Mock;
 import com.mockrunner.servlet.BasicServletTestCaseAdapter;
+import ua.nure.kn.dziuba.usermanagement.User;
 import ua.nure.kn.dziuba.usermanagement.db.DaoFactory;
 import ua.nure.kn.dziuba.usermanagement.db.MockDaoFactory;
 
+import java.util.Date;
 import java.util.Properties;
 
 public abstract class MockServletTestCase extends BasicServletTestCaseAdapter {
@@ -28,5 +30,15 @@ public abstract class MockServletTestCase extends BasicServletTestCaseAdapter {
 
     public void setMockUserDao(Mock mockUserDao) {
         this.mockUserDao = mockUserDao;
+    }
+
+    public User createUserForTest() {
+        User user = new User();
+        user.setId((long) 1000);
+        user.setFirstName("John");
+        user.setLastName("Doe");
+        user.setDateOfBirth(new Date());
+
+        return user;
     }
 }

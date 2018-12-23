@@ -18,19 +18,28 @@ public class BrowseServletTest extends MockServletTestCase {
     public void tearDown() throws Exception {
     }
 
-    public void testBrowse(){
-        User user = new User();
-        user.setId((long) 1000);
-        user.setFirstName("John");
-        user.setLastName("Doe");
-        user.setDateOfBirth(new Date());
+    public void testBrowse() {
+        createUserForTest();
+        User user = createUserForTest();
 
         List list = Collections.singletonList(user);
 
         getMockUserDao().expectAndReturn("findAll", list);
         doGet();
-        Collection collection = (Collection)getWebMockObjectFactory().getMockSession().getAttribute("users");
+        Collection collection = (Collection) getWebMockObjectFactory().getMockSession().getAttribute("users");
         assertNotNull("User's collection wasn't found", collection);
         assertSame(list, collection);
+    }
+
+    public void testEdit() {
+        User user = createUserForTest();
+
+        getMockUserDao().expectAndReturn("find", new Long(1000), user);
+        addRequestParameter("editButton", "Edit");
+        addRequestParameter("id", "1000");
+        doPost();
+        User sessionUser = (User) getWebMockObjectFactory().getMockSession().getAttribute("user");
+        assertNotNull("Couldn't find user", sessionUser);
+        assertSame("Wrong user was found", user, sessionUser);
     }
 }
