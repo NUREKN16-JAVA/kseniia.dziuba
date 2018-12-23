@@ -26,6 +26,7 @@ public class EditServletTest extends MockServletTestCase {
 
     public void testEditEmptyFirstName(){
         addRequestParameter("id", "1000");
+        addRequestParameter("firstName", "");
         addRequestParameter("lastName", "Doe");
         addRequestParameter("dateOfBirth", DateFormat.getDateInstance().format(new Date()));
         addRequestParameter("okButton", "Ok");
@@ -37,6 +38,7 @@ public class EditServletTest extends MockServletTestCase {
     public void testEditEmptyLastName(){
         addRequestParameter("id", "1000");
         addRequestParameter("firstName", "John");
+        addRequestParameter("lastName", "");
         addRequestParameter("dateOfBirth", DateFormat.getDateInstance().format(new Date()));
         addRequestParameter("okButton", "Ok");
         doPost();
@@ -48,6 +50,7 @@ public class EditServletTest extends MockServletTestCase {
         addRequestParameter("id", "1000");
         addRequestParameter("firstName", "John");
         addRequestParameter("lastName", "Doe");
+        addRequestParameter("dateOfBirth", "");
         addRequestParameter("okButton", "Ok");
         doPost();
         String errorMessage = (String) getWebMockObjectFactory().getMockRequest().getAttribute("error");

@@ -38,7 +38,7 @@ public class EditServlet extends HttpServlet {
             return;
         }
         try {
-            DaoFactory.getInstance().getUserDao().update(user);
+            processUser(user);
         } catch (DatabaseException e) {
             try {
                 throw new ServletException(e);
@@ -53,7 +53,7 @@ public class EditServlet extends HttpServlet {
         req.getRequestDispatcher("/browse").forward(req, resp);
     }
 
-    private void showPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void showPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/edit.jsp").forward(req, resp);
     }
 
@@ -87,5 +87,9 @@ public class EditServlet extends HttpServlet {
             throw new ValidationException("Date format is invalid.");
         }
         return user;
+    }
+
+    protected void processUser(User user) throws DatabaseException {
+        DaoFactory.getInstance().getUserDao().update(user);
     }
 }
