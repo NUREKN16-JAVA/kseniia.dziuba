@@ -15,6 +15,10 @@ public class DetailsServlet extends HttpServlet {
     private static final String DETAILS_JSP = "/details.jsp";
     private static final String BACK_BUTTON = "backButton";
 
+    /**
+     * If "Back" button was clicked, goes to "/browse" servlet page.
+     * If "Back" button wasn't clicked, stays on "/details.jsp" page.
+     * */
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(req.getParameter(BACK_BUTTON) != null){

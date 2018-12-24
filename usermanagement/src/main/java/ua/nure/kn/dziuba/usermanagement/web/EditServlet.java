@@ -26,6 +26,11 @@ public class EditServlet extends HttpServlet {
     private static final String LAST_NAME = "lastName";
     private static final String DATE_OF_BIRTH = "dateOfBirth";
 
+    /**
+     * If "Ok" button was clicked, edits user.
+     * If "Cancel" button was clicked, returns to "/browse" servlet page.
+     * Else shows "/edit" servlet page.
+     * */
     @Override
     public void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getParameter(OK_BUTTON) != null) {
@@ -37,6 +42,9 @@ public class EditServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Edits user and goes to "/browse" servlet page.
+     * */
     private void doOk(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = null;
         try {
@@ -58,14 +66,23 @@ public class EditServlet extends HttpServlet {
         req.getRequestDispatcher(BROWSE_SERVLET).forward(req, resp);
     }
 
+    /**
+     * Doesn't save user changes and goes to "/browse" servlet page.
+     * */
     private void doCancel(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher(BROWSE_SERVLET).forward(req, resp);
     }
 
+    /**
+     * Shows "/edit.jsp" page.
+     * */
     protected void showPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher(EDIT_JSP).forward(req, resp);
     }
 
+    /**
+     * Gets user information and checks it.
+     * */
     private User getUser(HttpServletRequest req) throws ValidationException {
         User user = new User();
         String id = req.getParameter(ID);
@@ -98,6 +115,9 @@ public class EditServlet extends HttpServlet {
         return user;
     }
 
+    /**
+     * Updates user.
+     * */
     protected void processUser(User user) throws DatabaseException {
         DaoFactory.getInstance().getUserDao().update(user);
     }

@@ -23,6 +23,9 @@ public class BrowseServlet extends HttpServlet {
     private static final String DETAILS_SERVLET = "/details";
     private static final String ID = "id";
 
+    /**
+     * Defines what to do when one of the buttons clicked.
+     * */
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getParameter(ADD_BUTTON) != null) {
@@ -38,15 +41,25 @@ public class BrowseServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Goes to "/add" servlet page.
+     * */
     private void add(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher(ADD_SERVLET).forward(req, resp);
     }
 
+    /**
+     * Sets user to the session and goes to "/edit" servlet page.
+     * */
     private void edit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setUserToSession(req, resp, EDIT_SERVLET);
     }
 
-    private void setUserToSession(HttpServletRequest req, HttpServletResponse resp, String editServlet) throws ServletException, IOException {
+    /**
+     * Sets user to the session and, if exception raises, goes to "/browse.jsp" page.
+     * If user was found, goes to servlet page.
+     * */
+    private void setUserToSession(HttpServletRequest req, HttpServletResponse resp, String servlet) throws ServletException, IOException {
         String id = getUserId(req, resp);
         if (id == null) {
             return;
@@ -59,9 +72,13 @@ public class BrowseServlet extends HttpServlet {
             req.getRequestDispatcher(BROWSE_JSP).forward(req, resp);
             return;
         }
-        req.getRequestDispatcher(editServlet).forward(req, resp);
+        req.getRequestDispatcher(servlet).forward(req, resp);
     }
 
+    /**
+     * Deletes user from database and goes to "/browse" servlet page.
+     * If exception raises, goes to "/browse.jsp" page.
+     * */
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = getUserId(req, resp);
         if (id == null) {
@@ -79,6 +96,9 @@ public class BrowseServlet extends HttpServlet {
         resp.sendRedirect(USERMANAGEMENT_BROWSE_SERVLET);
     }
 
+    /**
+     * Gets user id.
+     * */
     private String getUserId(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter(ID);
         if (id == null || id.trim().isEmpty()) {
@@ -89,10 +109,16 @@ public class BrowseServlet extends HttpServlet {
         return id;
     }
 
+    /**
+     * Sets user to session and goes to "/details" servlet page.
+     * */
     private void details(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         setUserToSession(req, resp, DETAILS_SERVLET);
     }
 
+    /**
+     * Finds all users and goes to "/browse.jsp" page.
+     * */
     private void browse(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
         Collection users;
         try {
