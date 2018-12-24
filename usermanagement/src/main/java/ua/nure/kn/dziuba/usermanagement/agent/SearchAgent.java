@@ -3,6 +3,11 @@ package ua.nure.kn.dziuba.usermanagement.agent;
 import jade.core.AID;
 import jade.core.Agent;
 import java.util.Collection;
+
+import jade.domain.DFService;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
+import jade.domain.FIPAException;
 import ua.nure.kn.dziuba.usermanagement.db.DaoFactory;
 import ua.nure.kn.dziuba.usermanagement.db.DatabaseException;
 
@@ -12,6 +17,18 @@ public class SearchAgent extends Agent {
     protected void setup() {
         super.setup();
         System.out.println(getAID().getName() + " started");
+
+        DFAgentDescription description = new DFAgentDescription();
+        description.setName(getAID());
+        ServiceDescription serviceDescription = new ServiceDescription();
+        serviceDescription.setName("JADE-searching");
+        serviceDescription.setType("searching");
+        description.addServices(serviceDescription);
+        try{
+            DFService.register(this, description);
+        }catch (FIPAException e){
+            e.printStackTrace();
+        }
     }
 
     protected void takeDown() {
