@@ -6,10 +6,7 @@ import ua.nure.kn.dziuba.usermanagement.User;
 import ua.nure.kn.dziuba.usermanagement.db.DaoFactory;
 import ua.nure.kn.dziuba.usermanagement.db.DatabaseException;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class RequestServer extends CyclicBehaviour {
     @Override
@@ -28,7 +25,21 @@ public class RequestServer extends CyclicBehaviour {
     }
 
     private Collection parseMessage(ACLMessage message) {
-        return null;
+        Collection users = new LinkedList();
+
+        String content = message.getContent();
+        if(content!=null){
+            StringTokenizer tokenizer = new StringTokenizer(content, "; ");
+            while (tokenizer.hasMoreTokens()){
+                String userInfo = tokenizer.nextToken();
+                StringTokenizer tokenizer1 = new StringTokenizer(userInfo, ", ");
+                String id = tokenizer1.nextToken();
+                String firstName = tokenizer1.nextToken();
+                String lastName = tokenizer1.nextToken();
+                users.add(new User(new Long(id), firstName, lastName, null));
+            }
+        }
+        return users;
     }
 
     private ACLMessage createReply(ACLMessage message) {
