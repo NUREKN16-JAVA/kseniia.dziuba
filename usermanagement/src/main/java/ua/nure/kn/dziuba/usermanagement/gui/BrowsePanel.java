@@ -1,9 +1,5 @@
 package ua.nure.kn.dziuba.usermanagement.gui;
 
-<<<<<<< HEAD
-=======
-import ua.nure.kn.dziuba.usermanagement.User;
->>>>>>> agent2
 import ua.nure.kn.dziuba.usermanagement.db.DatabaseException;
 import ua.nure.kn.dziuba.usermanagement.util.Messages;
 
@@ -14,10 +10,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class BrowsePanel extends JPanel implements ActionListener {
-<<<<<<< HEAD
-=======
-
->>>>>>> agent2
     private MainFrame parent;
     private JPanel buttonPanel;
     private JButton addButton;
@@ -27,23 +19,17 @@ public class BrowsePanel extends JPanel implements ActionListener {
     private JScrollPane tablePanel;
     private JTable userTable;
 
-<<<<<<< HEAD
     /**
      * {@inheritDoc}
      * */
-=======
->>>>>>> agent2
     public BrowsePanel(MainFrame frame) {
         parent = frame;
         initialize();
     }
 
-<<<<<<< HEAD
     /**
      * {@inheritDoc}
      * */
-=======
->>>>>>> agent2
     private void initialize() {
         this.setLayout(new BorderLayout());
         this.add(getTablePanel(), BorderLayout.CENTER);
@@ -51,14 +37,11 @@ public class BrowsePanel extends JPanel implements ActionListener {
         this.setName("browsePanel");
     }
 
-<<<<<<< HEAD
     /**
      * Gets singleton buttons panel.
      *
      * @return buttonPanel.
      * */
-=======
->>>>>>> agent2
     private Component getButtonsPanel() {
         if (buttonPanel == null) {
             buttonPanel = new JPanel();
@@ -70,14 +53,11 @@ public class BrowsePanel extends JPanel implements ActionListener {
         return buttonPanel;
     }
 
-<<<<<<< HEAD
     /**
      * Gets singleton "details" button.
      *
      * @return detailsButton.
      * */
-=======
->>>>>>> agent2
     private JButton getDetailsButton() {
         if (detailsButton == null) {
             detailsButton = new JButton();
@@ -89,14 +69,11 @@ public class BrowsePanel extends JPanel implements ActionListener {
         return detailsButton;
     }
 
-<<<<<<< HEAD
     /**
      * Gets singleton "delete" button.
      *
      * @return deleteButton.
      * */
-=======
->>>>>>> agent2
     private JButton getDeleteButton() {
         if (deleteButton == null) {
             deleteButton = new JButton();
@@ -108,14 +85,11 @@ public class BrowsePanel extends JPanel implements ActionListener {
         return deleteButton;
     }
 
-<<<<<<< HEAD
     /**
      * Gets singleton "edit" button.
      *
      * @return editButton.
      * */
-=======
->>>>>>> agent2
     private JButton getEditButton() {
         if (editButton == null) {
             editButton = new JButton();
@@ -127,14 +101,11 @@ public class BrowsePanel extends JPanel implements ActionListener {
         return editButton;
     }
 
-<<<<<<< HEAD
     /**
      * Gets singleton "add" button.
      *
      * @return addButton.
      * */
-=======
->>>>>>> agent2
     private JButton getAddButton() {
         if (addButton == null) {
             addButton = new JButton();
@@ -146,14 +117,11 @@ public class BrowsePanel extends JPanel implements ActionListener {
         return addButton;
     }
 
-<<<<<<< HEAD
     /**
      * Gets singleton table panel.
      *
      * @return tablePanel.
      * */
-=======
->>>>>>> agent2
     private JScrollPane getTablePanel() {
         if (tablePanel == null) {
             tablePanel = new JScrollPane(getUserTable());
@@ -161,14 +129,11 @@ public class BrowsePanel extends JPanel implements ActionListener {
         return tablePanel;
     }
 
-<<<<<<< HEAD
     /**
      * Gets singleton user table.
      *
      * @return userTable.
      * */
-=======
->>>>>>> agent2
     private JTable getUserTable() {
         if (userTable == null) {
             userTable = new JTable();
@@ -177,12 +142,9 @@ public class BrowsePanel extends JPanel implements ActionListener {
         return userTable;
     }
 
-<<<<<<< HEAD
     /**
      * Initializes table of users.
      * */
-=======
->>>>>>> agent2
     public void initTable(){
         UserTableModel model;
         try {
@@ -194,12 +156,9 @@ public class BrowsePanel extends JPanel implements ActionListener {
         userTable.setModel(model);
     }
 
-<<<<<<< HEAD
     /**
      * Performs actions if buttons clicked.
      * */
-=======
->>>>>>> agent2
     @Override
     public void actionPerformed(ActionEvent e) {
         String actionCommand = e.getActionCommand();
@@ -210,21 +169,15 @@ public class BrowsePanel extends JPanel implements ActionListener {
         if("delete".equalsIgnoreCase(actionCommand)){
             Long userId = (long) userTable.getValueAt(userTable.getSelectedRow(), 0);
             this.setVisible(false);
-<<<<<<< HEAD
             try{
                 parent.showDeletePanel(parent.getDao().find(userId));
             }catch (DatabaseException e1){
                 e1.printStackTrace();
             }
-=======
-            parent.setUserId(userId);
-            parent.showDeletePanel();
->>>>>>> agent2
         }
         if("details".equalsIgnoreCase(actionCommand)){
             Long userId = (long) userTable.getValueAt(userTable.getSelectedRow(), 0);
             this.setVisible(false);
-<<<<<<< HEAD
             try{
                 parent.showDetailsPanel(parent.getDao().find(userId));
             }catch (DatabaseException e1){
@@ -239,10 +192,6 @@ public class BrowsePanel extends JPanel implements ActionListener {
             }catch (DatabaseException e1){
                 e1.printStackTrace();
             }
-=======
-            parent.setUserId(userId);
-            parent.showDetailsPanel();
->>>>>>> agent2
         }
     }
 }

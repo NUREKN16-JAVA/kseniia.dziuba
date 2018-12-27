@@ -14,50 +14,38 @@ public class UserTableModel extends AbstractTableModel {
     private static final String[] COLUMN_NAMES = {"ID", Messages.getString("first_name"), Messages.getString("last_name")};
     private static final Class[] COLUMN_CLASSES = {Long.class, String.class, String.class};
 
-<<<<<<< HEAD
     /**
      * Creates table model in depend on collection of users.
      *
      * @param users to create model.
      * */
-=======
->>>>>>> agent2
     public UserTableModel(Collection users) {
         this.users = new ArrayList(users);
     }
 
-<<<<<<< HEAD
     /**
      * {@inheritDoc]}
      * */
-=======
-    public UserTableModel(User user){
+   public UserTableModel(User user){
         this.user = user;
     }
 
->>>>>>> agent2
     @Override
     public int getRowCount() {
         return users.size();
     }
 
-<<<<<<< HEAD
     /**
      * {@inheritDoc]}
      * */
-=======
->>>>>>> agent2
     @Override
     public int getColumnCount() {
         return COLUMN_NAMES.length;
     }
 
-<<<<<<< HEAD
     /**
      * {@inheritDoc]}
      * */
-=======
->>>>>>> agent2
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         User user = (User) users.get(rowIndex);
@@ -72,30 +60,22 @@ public class UserTableModel extends AbstractTableModel {
         return null;
     }
 
-<<<<<<< HEAD
     /**
      * Gets class in depend on columnIndex.
      *
      * @param columnIndex of class to return.
      * @return Class on columnIndex position.
      * */
-=======
->>>>>>> agent2
     public Class getColumnClass(int columnIndex){
         return COLUMN_CLASSES[columnIndex];
     }
 
-<<<<<<< HEAD
     /**
      * Gets class name in depend on columnIndex.
      *
      * @param columnIndex of class name to return.
      * @return String class name on columnIndex position.
      * */
-    public String getColumnName(int columnIndex){
-        return COLUMN_NAMES[columnIndex];
-    }
-=======
     public String getColumnName(int columnIndex){
         return COLUMN_NAMES[columnIndex];
     }
@@ -107,5 +87,4 @@ public class UserTableModel extends AbstractTableModel {
     public void clearUsers() {
         this.users = new ArrayList();
     }
->>>>>>> agent2
 }
