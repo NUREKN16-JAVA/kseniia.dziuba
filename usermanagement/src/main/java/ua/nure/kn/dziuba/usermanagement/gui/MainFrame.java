@@ -9,7 +9,14 @@ import ua.nure.kn.dziuba.usermanagement.util.Messages;
 import javax.swing.*;
 import java.awt.*;
 
+<<<<<<< HEAD
 public class MainFrame extends JFrame {
+=======
+import static junit.framework.Assert.fail;
+
+public class MainFrame extends JFrame {
+
+>>>>>>> agent2
     private JPanel contentPanel;
     private BrowsePanel browsePanel;
     private static final int FRAME_WIDTH = 400;
@@ -19,7 +26,10 @@ public class MainFrame extends JFrame {
     private DetailsPanel detailsPanel;
     private UserDao dao;
     private Long userId;
+<<<<<<< HEAD
     private EditPanel editPanel;
+=======
+>>>>>>> agent2
 
     public MainFrame() {
         super();
@@ -27,16 +37,22 @@ public class MainFrame extends JFrame {
         initialize();
     }
 
+<<<<<<< HEAD
     /**
      * Gets UserDao dao.
      * */
+=======
+>>>>>>> agent2
     public UserDao getDao() {
         return dao;
     }
 
+<<<<<<< HEAD
     /**
      * Initializes MainFrame structure properties.
      * */
+=======
+>>>>>>> agent2
     private void initialize() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(FRAME_WIDTH, FRAME_HEIGHT);
@@ -44,6 +60,7 @@ public class MainFrame extends JFrame {
         this.setContentPane(getContentPanel());
     }
 
+<<<<<<< HEAD
     /**
      * Shows panel.
      *
@@ -107,6 +124,18 @@ public class MainFrame extends JFrame {
      *
      * @return browsePanel.
      * */
+=======
+    private JPanel getContentPanel() {
+        if (contentPanel == null) {
+            contentPanel = new JPanel();
+            contentPanel.setLayout(new BorderLayout());
+            contentPanel.add(getBrowsePanel(), BorderLayout.CENTER);
+        }
+
+        return contentPanel;
+    }
+
+>>>>>>> agent2
     private BrowsePanel getBrowsePanel() {
         if (browsePanel == null) {
             browsePanel = new BrowsePanel(this);
@@ -116,6 +145,7 @@ public class MainFrame extends JFrame {
         return browsePanel;
     }
 
+<<<<<<< HEAD
     /**
      * Gets singleton edit panel.
      *
@@ -146,6 +176,31 @@ public class MainFrame extends JFrame {
      *
      * @return deletePanel.
      * */
+=======
+    public static void main(String args[]) {
+        MainFrame frame = new MainFrame();
+        frame.setVisible(true);
+    }
+
+    public void showAddPanel() {
+        showPanel(getAddPanel());
+    }
+
+    private void showPanel(JPanel panel) {
+        getContentPane().add(panel, BorderLayout.CENTER);
+        panel.setVisible(true);
+        panel.repaint();
+    }
+
+    private AddPanel getAddPanel() {
+        if (addPanel == null) {
+            addPanel = new AddPanel(this);
+        }
+
+        return addPanel;
+    }
+
+>>>>>>> agent2
     private DeletePanel getDeletePanel() {
         if (deletePanel == null) {
             deletePanel = new DeletePanel(this);
@@ -154,6 +209,7 @@ public class MainFrame extends JFrame {
         return deletePanel;
     }
 
+<<<<<<< HEAD
     /**
      * Gets singleton add panel.
      *
@@ -188,10 +244,37 @@ public class MainFrame extends JFrame {
      * @return user if user was found in DB.
      * @return null if user was not found.
      * */
+=======
+    public void showBrowsePanel() {
+        this.showPanel(getBrowsePanel());
+    }
+
+    public void showDeletePanel() {
+        this.showPanel(getDeletePanel());
+    }
+
+    public void setUserId(Long userId){
+        this.userId = userId;
+    }
+
+    public void showDetailsPanel(){
+        this.showPanel(getDetailsPanel());
+    }
+
+    private JPanel getDetailsPanel() {
+        if(detailsPanel == null){
+            detailsPanel = new DetailsPanel(this);
+        }
+
+        return detailsPanel;
+    }
+
+>>>>>>> agent2
     public User getUser() {
         try {
             return dao.find(userId);
         } catch (DatabaseException e) {
+<<<<<<< HEAD
             e.printStackTrace();
         }
         return null;
@@ -204,4 +287,10 @@ public class MainFrame extends JFrame {
         MainFrame frame = new MainFrame();
         frame.setVisible(true);
     }
+=======
+            fail(e.getMessage());
+        }
+        return null;
+    }
+>>>>>>> agent2
 }

@@ -3,6 +3,8 @@ package ua.nure.kn.dziuba.usermanagement.db;
 import java.io.IOException;
 import java.util.Properties;
 
+import static junit.framework.Assert.fail;
+
 public abstract class DaoFactory {
     protected static Properties properties;
     private static final String DAO_FACTORY = "dao.factory";
